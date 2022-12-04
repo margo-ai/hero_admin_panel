@@ -1,22 +1,22 @@
 {
   "heroes": [
     {
-      "id": 2,
-      "name": "Неизвестный герой",
-      "description": "Скрывающийся в тени",
+      "id": "b6a0187c-77fa-48af-a1c6-7b51062afa0e",
+      "name": "ナルト",
+      "description": "らせんがん",
       "element": "wind"
     },
     {
-      "id": "86daeb98-9eb1-4537-aeb0-0ec4e52a99f5",
-      "name": "Thor",
-      "description": "lightnings",
-      "element": "wind"
-    },
-    {
-      "id": "b1860c7f-f248-4c67-aff4-ee2785fb5c51",
-      "name": "Sasuke",
-      "description": "katon",
+      "id": "7424058f-3524-4859-97dc-f60d5e3a6a93",
+      "name": "サスケ",
+      "description": "火遁",
       "element": "fire"
+    },
+    {
+      "id": "e005da8b-063d-4d7a-9f52-7c3c697f4893",
+      "name": "カカシ",
+      "description": "土遁・土流壁",
+      "element": "earth"
     }
   ],
   "filters": [
