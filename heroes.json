@@ -17,6 +17,12 @@
       "name": "カカシ",
       "description": "土遁・土流壁",
       "element": "earth"
+    },
+    {
+      "id": "6fcffb3d-2465-410c-80ac-ba95eee671b6",
+      "name": "Spider-Man",
+      "description": "Летать на паутине",
+      "element": "wind"
     }
   ],
   "filters": [
