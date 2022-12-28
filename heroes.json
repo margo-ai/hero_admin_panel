@@ -19,10 +19,16 @@
       "element": "earth"
     },
     {
-      "id": "6fcffb3d-2465-410c-80ac-ba95eee671b6",
-      "name": "Spider-Man",
-      "description": "Летать на паутине",
-      "element": "wind"
+      "id": "5663e9bd-56ee-412d-87d1-d4dd4732aa91",
+      "name": "Mizukage",
+      "description": "Атаковать водой",
+      "element": "water"
+    },
+    {
+      "id": "f8fedd00-3386-475d-a1eb-f6da0d3cbb89",
+      "name": "Madara",
+      "description": "Fireball",
+      "element": "fire"
     }
   ],
   "filters": [
