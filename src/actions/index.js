@@ -1,5 +1,7 @@
-import { createAction } from "@reduxjs/toolkit";
+import { heroesFetched, heroesFetchingError, heroesFetching } from "../components/heroesList/heroesSlice";
+import { filtersFetching, filtersFetched, filtersFetchingError } from "../components/heroesFilters/filtersSlice";
 
+// Action creator нужны для того, чтобы не прописывать каждый раз {type: "..."}, поэтому мы просто возвращаем нужный тип экшена в виде объекта
 export const fetchHeroes = (request) => (dispatch) => {
     dispatch(heroesFetching());
     request("http://localhost:3001/heroes")
@@ -14,74 +16,31 @@ export const fetchFilters = (request) => (dispatch) => {
         .catch(() => dispatch(filtersFetchingError))
 }
 
-// export const heroesFetching = () => {
+
+
+// export const filtersFetching = () => {
 //     return {
-//         type: 'HEROES_FETCHING'
+//         type: 'FILTERS_FETCHING'
 //     }
 // }
 
-export const heroesFetching = createAction('HEROES_FETCHING');
 
-// export const heroesFetched = (heroes) => {
+// export const filtersFetched = (filters) => {
 //     return {
-//         type: 'HEROES_FETCHED',
-//         payload: heroes
+//         type: 'FILTERS_FETCHED',
+//         payload: filters
 //     }
 // }
 
-export const heroesFetched = createAction('HEROES_FETCHED');
-
-// export const heroesFetchingError = () => {
+// export const filtersFetchingError = () => {
 //     return {
-//         type: 'HEROES_FETCHING_ERROR'
+//         type: 'FILTERS_FETCHING_ERROR'
 //     }
 // }
 
-export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR');
-
-export const filtersFetching = () => {
-    return {
-        type: 'FILTERS_FETCHING'
-    }
-}
-
-
-export const filtersFetched = (filters) => {
-    return {
-        type: 'FILTERS_FETCHED',
-        payload: filters
-    }
-}
-
-export const filtersFetchingError = () => {
-    return {
-        type: 'FILTERS_FETCHING_ERROR'
-    }
-}
-
-export const activeFilterChanged = (filter) => {
-    return {
-        type: 'ACTIVE_FILTER_CHANGED',
-        payload: filter
-    }
-}
-
-// export const heroCreated = (hero) => {
+// export const activeFilterChanged = (filter) => {
 //     return {
-//         type: 'HERO_CREATED',
-//         payload: hero
+//         type: 'ACTIVE_FILTER_CHANGED',
+//         payload: filter
 //     }
 // }
-
-//payload передается автоматически
-export const heroCreated = createAction('HERO_CREATED');
-
-// export const heroDeleted = (id) => {
-//     return {
-//         type: 'HERO_DELETED',
-//         payload: id
-//     }
-// }
-
-//payload передается автоматически
-export const heroDeleted = createAction('HERO_DELETED');
