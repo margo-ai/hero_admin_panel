@@ -1,8 +1,6 @@
-import {useHttp} from '../../hooks/http.hook';
-import { useCallback, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { heroDeleted, fetchHeroes, filteredHeroesSelector } from './heroesSlice';
+import { useCallback,  useMemo } from 'react';
+import { useSelector } from 'react-redux';
+import { useGetHeroesQuery, useDeleteHeroMutation } from '../../api/apiSlice';
 
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
@@ -13,8 +11,7 @@ import Spinner from '../spinner/Spinner';
 // Удаление идет и с json файла при помощи метода DELETE
 
 const HeroesList = () => {
-    //createSelector - мемоизирует значения. Если значение поля не изменилось, то она не будет вызывать ререндер.
-    
+    //createSelector - мемоизирует значения. Если значение поля не изменилось, то она не будет вызывать ререндер.    
 
     // const filteredHeroes = useSelector(state => {
     //     if (state.filters.activeFilter === "all") {
@@ -23,16 +20,32 @@ const HeroesList = () => {
     //         return state.heroes.heroes.filter(item => item.element === state.filters.activeFilter);
     //     }
     // });
-    
-    const filteredHeroes = useSelector(filteredHeroesSelector);
 
-    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
-    const dispatch = useDispatch();
-    const {request} = useHttp();
+    const {
+        data: heroes = [],
+        // isFetching, //срабатывает при остальных запросах
+        isLoading, //срабатывает при первом запросе
+        isError,
+    } = useGetHeroesQuery();
 
-    useEffect(() => {
-        dispatch(fetchHeroes());
-    }, []);
+    const [deleteHero] = useDeleteHeroMutation();
+
+    const activeFilter = useSelector(state => state.filters.activeFilter);
+    const filteredHeroes = useMemo(() => {
+        const filteredHeroes = heroes.slice();
+        if (activeFilter === "all") {
+            return filteredHeroes;
+        } else {
+            return filteredHeroes.filter(item => item.element === activeFilter);
+        }
+    }, [heroes, activeFilter]); 
+
+    // const dispatch = useDispatch();
+    // const {request} = useHttp();
+
+    // useEffect(() => {
+    //     dispatch(fetchHeroes());
+    // }, []);
 
 
     //функция берет id и по нему удаляет ненужного персонажа из store
@@ -41,15 +54,16 @@ const HeroesList = () => {
 
     const onDelete = useCallback((id) => {
         //удаление персонажа по его id
-        request(`http://localhost:3001/heroes/${id}`, 'DELETE')
-            .then(data => console.log(data, 'Deleted'))
-            .then(dispatch(heroDeleted(id)))
-            .catch(err => console.log(err));
-    }, [request]);
+        // request(`http://localhost:3001/heroes/${id}`, 'DELETE')
+        //     .then(data => console.log(data, 'Deleted'))
+        //     .then(dispatch(heroDeleted(id)))
+        //     .catch(err => console.log(err));
+        deleteHero(id);
+    }, []);
 
-    if (heroesLoadingStatus === "loading") {
+    if (isLoading) {
         return <Spinner/>;
-    } else if (heroesLoadingStatus === "error") {
+    } else if (isError) {
         return <h5 className="text-center mt-5">Ошибка загрузки</h5>
     }
 
